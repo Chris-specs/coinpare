@@ -14,11 +14,14 @@ module.exports = {
                 sans: ['poppins'],
             },
             colors: {
-                'blue-brand': '#0052FF',
+                'blue-brand': {
+                    50: '#113355',
+                    100:'#0052FF',
+                },
                 'gray-brand': {
                     50: '#DEDFE2',
                     100: '#979797',
-                    200: '5B616E',
+                    200: '#5B616E',
                 },
                 'dark-brand': '#0A0B0E',
             },
@@ -32,6 +35,24 @@ module.exports = {
             },
             margin: {
                 98: '26rem',
+            },
+            keyframes: {
+                'fade-down': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'translateY(-200px)',
+                    },
+                    '50%': {
+                        opacity: '0',
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'translateY(0)',
+                    },
+                },
+            },
+            animation: {
+                'fade-down': 'fade-down 0.3s normal',
             },
         },
     },
