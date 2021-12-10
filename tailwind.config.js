@@ -16,7 +16,7 @@ module.exports = {
             colors: {
                 'blue-brand': {
                     50: '#113355',
-                    100:'#0052FF',
+                    100: '#0052FF',
                 },
                 'gray-brand': {
                     50: '#DEDFE2',
@@ -27,6 +27,7 @@ module.exports = {
             },
             width: {
                 480: '480px',
+                550: '550px',
             },
             height: {
                 '10%': '10%',
@@ -59,5 +60,7 @@ module.exports = {
     variants: {
         extend: {},
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/line-clamp'),
+    ],
 };
