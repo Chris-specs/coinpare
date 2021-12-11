@@ -12,9 +12,6 @@ module.exports = {
             backgroundImage: {
                 elements: "url('/images/background.svg')",
             },
-            fontFamily: {
-                'sans': ['poppins'],
-            },
             fontSize: {
                 xxs: '0.5rem'
             },
