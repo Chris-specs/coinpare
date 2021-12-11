@@ -61,7 +61,12 @@ const Layout = ({ children }) => {
                                         className='w-full h-12 flex justify-center items-center'
                                     >
                                         <Link href={link.url}>
-                                            <a className='font-medium text-dark-brand'>
+                                            <a
+                                                onClick={() =>
+                                                    setShowMenu(!showMenu)
+                                                }
+                                                className='font-medium text-dark-brand'
+                                            >
                                                 {link.name}
                                             </a>
                                         </Link>
@@ -99,20 +104,18 @@ const Layout = ({ children }) => {
                                 </p>
                                 <ul>
                                     <li>
-                                        <a
-                                            href='/compare'
-                                            className='text-blue-brand-50 opacity-70'
-                                        >
-                                            Compare
-                                        </a>
+                                        <Link href='/compare'>
+                                            <a className='text-blue-brand-50 opacity-70'>
+                                                Compare
+                                            </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a
-                                            href='/compare'
-                                            className='text-blue-brand-50 opacity-70'
-                                        >
-                                            News
-                                        </a>
+                                        <Link href='/compare'>
+                                            <a className='text-blue-brand-50 opacity-70'>
+                                                News
+                                            </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
@@ -122,20 +125,18 @@ const Layout = ({ children }) => {
                                 </p>
                                 <ul>
                                     <li>
-                                        <a
-                                            href='/compare'
-                                            className='text-blue-brand-50 opacity-70'
-                                        >
-                                            About
-                                        </a>
+                                        <Link href='/compare'>
+                                            <a className='text-blue-brand-50 opacity-70'>
+                                                About
+                                            </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a
-                                            href='/compare'
-                                            className='text-blue-brand-50 opacity-70'
-                                        >
-                                            FAQ's
-                                        </a>
+                                        <Link href='/compare'>
+                                            <a className='text-blue-brand-50 opacity-70'>
+                                                FAQ´s
+                                            </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>

@@ -1,17 +1,22 @@
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
     mode: 'jit',
-    purge: [
+    content: [
         './pages/**/*.{js,ts,jsx,tsx}',
         './components/**/*.{js,ts,jsx,tsx}',
     ],
-    darkMode: false, // or 'media' or 'class'
+    darkMode: 'class', // or 'media' or 'class'
     theme: {
         extend: {
             backgroundImage: {
                 elements: "url('/images/background.svg')",
             },
             fontFamily: {
-                sans: ['poppins'],
+                'sans': ['poppins'],
+            },
+            fontSize: {
+                xxs: '0.5rem'
             },
             colors: {
                 'blue-brand': {
@@ -62,5 +67,16 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/line-clamp'),
+        plugin(function ({ addUtilities }) {
+            addUtilities({
+                '.scrollbar-hidden': {
+                    '-ms-overflow-style': 'none',
+                    'scrollbar-width': 'none',
+                },
+                '.scrollbar-hidden::-webkit-scrollbar': {
+                    display: 'none',
+                },
+            });
+        }),
     ],
 };
