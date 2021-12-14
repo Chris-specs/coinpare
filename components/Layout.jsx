@@ -74,7 +74,12 @@ const Layout = ({ children }) => {
                                 ))}
                                 <li className='w-full h-12 flex justify-center items-center'>
                                     <Link href='/compare'>
-                                        <a className='w-full h-full flex justify-center items-center font-medium text-white bg-blue-brand-100 rounded-lg'>
+                                        <a
+                                            onClick={() =>
+                                                setShowMenu(!showMenu)
+                                            }
+                                            className='w-full h-full flex justify-center items-center font-medium text-white bg-blue-brand-100 rounded-lg'
+                                        >
                                             Get Started
                                         </a>
                                     </Link>
