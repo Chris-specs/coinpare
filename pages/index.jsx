@@ -24,11 +24,13 @@ export default function Home({ coins, news }) {
         <>
             <Head>
                 <title>Coinpare</title>
-                <meta name='description' content='Get main information about cryptocurrencies' />
-                <link rel='icon' href='/favicon.ico' />
+                <meta
+                    name='description'
+                    content='Get main information about cryptocurrencies'
+                />
             </Head>
             {/* Hero */}
-            <section className='w-full h-auto md:h-full max-h-screen flex justify-center'>
+            <section className='w-full h-auto md:h-full flex justify-center'>
                 <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-32'>
                     <div className='flex justify-center pt-44 pb-24 xl:gap-10'>
                         <div className='w-full lg:w-1/2 flex flex-col'>
@@ -66,16 +68,32 @@ export default function Home({ coins, news }) {
                             </div>
                             <div className='w-550 h-full flex justify-center items-start'>
                                 <div className='w-12 h-12 xl:w-14 xl:h-14 translate-y-44'>
-                                    <Image src={Cardano} layout='fill' alt='Cardano' />
+                                    <Image
+                                        src={Cardano}
+                                        layout='fill'
+                                        alt='Cardano'
+                                    />
                                 </div>
                                 <div className='w-12 h-12 xl:w-14 xl:h-14 translate-y-60 xl:translate-y-64'>
-                                    <Image src={Bitcoin} layout='fill' alt='Bitcoin' />
+                                    <Image
+                                        src={Bitcoin}
+                                        layout='fill'
+                                        alt='Bitcoin'
+                                    />
                                 </div>
                                 <div className='w-12 h-16 xl:w-14 xl:h-20 translate-y-24'>
-                                    <Image src={Ethereum} layout='fill' alt='Ethereum' />
+                                    <Image
+                                        src={Ethereum}
+                                        layout='fill'
+                                        alt='Ethereum'
+                                    />
                                 </div>
                                 <div className='w-12 h-12 xl:w-14 xl:h-14 translate-y-48 xl:translate-y-52 '>
-                                    <Image src={Solana} layout='fill' alt='Solana' />
+                                    <Image
+                                        src={Solana}
+                                        layout='fill'
+                                        alt='Solana'
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -83,7 +101,7 @@ export default function Home({ coins, news }) {
                 </div>
             </section>
             {/* Main cryptos */}
-            <section className='w-full h-auto md:h-full max-h-screen flex justify-center'>
+            <section className='w-full h-auto md:h-full flex justify-center'>
                 <div className='w-full max-w-screen-2xl h-auto md:px-10 lg:px-20 py-6'>
                     <div className='flex justify-center'>
                         <table className='w-full'>
@@ -169,7 +187,7 @@ export default function Home({ coins, news }) {
                 </div>
             </section>
             {/* News */}
-            <section className='w-full h-auto md:h-full max-h-screen flex justify-center'>
+            <section className='w-full h-auto md:h-full flex justify-center'>
                 <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20'>
                     <div className='flex flex-col items-center py-6'>
                         <div className='flex flex-col md:flex-row md:gap-6 xl:gap-10'>

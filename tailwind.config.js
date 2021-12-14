@@ -28,6 +28,7 @@ module.exports = {
                 'dark-brand': '#0A0B0E',
             },
             width: {
+                75: '18.5rem',
                 480: '480px',
                 550: '550px',
             },

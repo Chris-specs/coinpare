@@ -42,23 +42,23 @@ const Compare = ({ coins }) => {
     return (
         <>
             <Head>
-                <title>Compare</title>
+                <title>Compare cryptocurrencies</title>
                 <meta
                     name='description'
                     content='Compare prices of the main cryptocurrencies'
                 />
             </Head>
-            <section className='w-full h-auto md:h-full max-h-screen flex justify-center'>
-                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20'>
-                    <div className='flex flex-col lg:h-full lg:flex-row-reverse pt-20 lg:pt-28 py-6 gap-4'>
-                        <div className='w-full lg:w-4/12 h-72 lg:h-full border border-blue-brand-100 py-4 px-5 rounded-lg'>
+            <section className='w-full h-auto md:h-full flex justify-center'>
+                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-52'>
+                    <div className='flex flex-col lg:h-full lg:flex-row-reverse lg:justify-center pt-20 lg:pt-28 py-6 gap-4'>
+                        <div className='w-full lg:w-72 h-72 lg:h-full border border-blue-brand-100 py-4 lg:p-8 px-5 rounded-lg'>
                             {loading ? (
                                 <div className='w-full h-full flex justify-center items-center'>
                                     <Player
                                         src={Loader}
                                         autoplay
                                         loop
-                                        className='w-10/12 md:w-48 xl:w-550'
+                                        className='w-28 md:w-48'
                                     />
                                 </div>
                             ) : coinData == undefined ? (
@@ -81,27 +81,29 @@ const Compare = ({ coins }) => {
                                     <p className='text-lg font-semibold text-dark-brand'>
                                         {compareData.coin.name}
                                     </p>
-                                    <div className='w-12 h-12 relative mb-4'>
+                                    <div className='w-12 h-12 relative mb-4 lg:mb-6'>
                                         <Image
                                             src={`https://www.cryptocompare.com${coinData.IMAGEURL}`}
                                             layout='fill'
                                             alt='Crypto logo'
                                         />
                                     </div>
-                                    <div className='w-full flex flex-col items-center'>
-                                        {convertion.map((element, i) => (
-                                            <p
-                                                key={i}
-                                                className={`text-dark-brand ${
-                                                    i == 0 && 'mb-4'
-                                                }`}
-                                            >
-                                                {element.name}:{' '}
-                                                <span className='font-medium text-blue-brand-100 capitalize'>
-                                                    {coinData[element.code]}
-                                                </span>
-                                            </p>
-                                        ))}
+                                    <div>
+                                        <div className='w-full flex flex-col items-center lg:items-start'>
+                                            {convertion.map((element, i) => (
+                                                <p
+                                                    key={i}
+                                                    className={`lg:text-sm text-dark-brand ${
+                                                        i == 0 && 'mb-4'
+                                                    }`}
+                                                >
+                                                    {element.name}:{' '}
+                                                    <span className='font-medium text-blue-brand-100 capitalize'>
+                                                        {coinData[element.code]}
+                                                    </span>
+                                                </p>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             )}
@@ -109,7 +111,7 @@ const Compare = ({ coins }) => {
                         <div className='flex justify-center items-center'>
                             <IoArrowForwardOutline className='-rotate-90 md:rotate-0' />
                         </div>
-                        <div className='w-full lg:w-3/12 flex lg:justify-center items-center'>
+                        <div className='w-full lg:w-36 flex items-center'>
                             <div className='lg:h-full flex lg:flex-col flex-wrap justify-between gap-2'>
                                 {currencies.map((currency, i) => (
                                     <button
@@ -137,8 +139,8 @@ const Compare = ({ coins }) => {
                         <div className='flex justify-center items-center'>
                             <IoArrowForwardOutline className='-rotate-90 md:rotate-0' />
                         </div>
-                        <div className='w-full lg:w-5/12 flex items-center overflow-x-auto scrollbar-hidden'>
-                            <div className='flex justify-center flex-wrap gap-2'>
+                        <div className='w-full lg:w-75 flex items-center overflow-x-auto scrollbar-hidden'>
+                            <div className='flex justify-center lg:justify-start lg:flex-wrap gap-2'>
                                 {coins.map((coin, i) => (
                                     <button
                                         onClick={() => {
@@ -156,7 +158,7 @@ const Compare = ({ coins }) => {
                                             getInfo();
                                         }}
                                         key={i}
-                                        className={`w-28 lg:w-36 h-28 lg:h-24 flex flex-col justify-between  ${
+                                        className={`w-32 lg:w-36 h-28 lg:h-24 flex flex-col justify-between  ${
                                             coin.CoinInfo.Name ==
                                                 compareData.coin.code &&
                                             'bg-blue-brand-100'
