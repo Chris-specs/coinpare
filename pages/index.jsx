@@ -31,7 +31,7 @@ export default function Home({ coins, news }) {
             </Head>
             {/* Hero */}
             <section className='w-full h-auto md:h-full flex justify-center'>
-                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-32'>
+                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-44'>
                     <div className='flex justify-center pt-44 pb-24 xl:gap-10'>
                         <div className='w-full lg:w-1/2 flex flex-col'>
                             <div className='flex gap-3 items-center text-blue-brand-100'>
@@ -102,7 +102,7 @@ export default function Home({ coins, news }) {
             </section>
             {/* Main cryptos */}
             <section className='w-full h-auto md:h-full flex justify-center'>
-                <div className='w-full max-w-screen-2xl h-auto md:px-10 lg:px-20 py-6'>
+                <div className='w-full max-w-screen-2xl h-auto md:px-10 lg:px-20 xl:px-44 py-6'>
                     <div className='flex justify-center'>
                         <table className='w-full'>
                             <tbody className='w-full border-t lg:border-0 border-gray-brand-50'>
@@ -188,7 +188,7 @@ export default function Home({ coins, news }) {
             </section>
             {/* News */}
             <section className='w-full h-auto md:h-full flex justify-center'>
-                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20'>
+                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-44'>
                     <div className='flex flex-col items-center py-6'>
                         <div className='flex flex-col md:flex-row md:gap-6 xl:gap-10'>
                             {lastNews.map((item, i) => (

@@ -42,7 +42,7 @@ const Compare = ({ coins }) => {
     return (
         <>
             <Head>
-                <title>Compare cryptocurrencies</title>
+                <title>Coinpare - Compare cryptocurrencies</title>
                 <meta
                     name='description'
                     content='Compare prices of the main cryptocurrencies'

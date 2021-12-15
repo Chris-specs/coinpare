@@ -23,10 +23,10 @@ const Layout = ({ children }) => {
     return (
         <>
             <header className='w-full flex justify-center items-center bg-white fixed top-0 z-10  border-b border-gray-200'>
-                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20'>
+                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-44'>
                     <div className='flex h-14 lg:h-16 justify-between items-center'>
                         <Link href='/'>
-                            <a className='text-2xl font-semibold text-blue-brand-100'>
+                            <a onClick={() => setShowMenu(false)} className='text-2xl font-semibold text-blue-brand-100'>
                                 coinpare
                             </a>
                         </Link>
@@ -91,7 +91,7 @@ const Layout = ({ children }) => {
             </header>
             <main className='z-0 relative'>{children}</main>
             <footer className='w-full flex justify-center items-center py-4 border-t border-gray-200'>
-                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20'>
+                <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-44'>
                     <div className='flex flex-col lg:flex-row lg:justify-between py-4 gap-5'>
                         <div className='flex flex-col justify-start gap-3'>
                             <p className='text-3xl lg:text-2xl font-semibold text-blue-brand-100'>
