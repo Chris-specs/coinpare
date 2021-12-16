@@ -34,10 +34,12 @@ export default function Home({ coins, news }) {
                 <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-44'>
                     <div className='flex justify-center pt-44 pb-24 xl:gap-10'>
                         <div className='w-full lg:w-1/2 flex flex-col'>
-                            <div className='flex gap-3 items-center text-blue-brand-100'>
-                                <p>Discover we sources of data</p>
-                                <IoArrowForwardOutline />
-                            </div>
+                            <Link href='/about'>
+                                <a className='flex gap-3 items-center text-blue-brand-100'>
+                                    <p>Discover we sources of data</p>
+                                    <IoArrowForwardOutline />
+                                </a>
+                            </Link>
                             <h1 className='text-3xl md:text-5xl xl:text-6xl font-semibold text-dark-brand my-4 md:my-6'>
                                 Get information
                                 <br />
@@ -198,7 +200,10 @@ export default function Home({ coins, news }) {
                                 >
                                     <div className='w-full flex flex-col'>
                                         <Link href={item.url}>
-                                            <a className='lg:text-lg font-semibold text-blue-brand-100 line-clamp-2 mb-2'>
+                                            <a
+                                                target='_blank'
+                                                className='lg:text-lg font-semibold text-blue-brand-100 line-clamp-2 mb-2'
+                                            >
                                                 {item.title}
                                             </a>
                                         </Link>
@@ -208,7 +213,10 @@ export default function Home({ coins, news }) {
                                     </div>
                                     <div className='flex justify-between lg:flex-col lg:gap-4 items-center lg:items-start'>
                                         <Link href={item.url}>
-                                            <a className='w-20 h-8 lg:h-7 flex justify-center items-center bg-white text-xs text-blue-brand-100 border border-blue-brand-100 rounded-lg lg:rounded'>
+                                            <a
+                                                target='_blank'
+                                                className='w-20 h-8 lg:h-7 flex justify-center items-center bg-white text-xs text-blue-brand-100 border border-blue-brand-100 rounded-lg lg:rounded'
+                                            >
                                                 Read more
                                             </a>
                                         </Link>
@@ -228,7 +236,7 @@ export default function Home({ coins, news }) {
                                 </div>
                             ))}
                         </div>
-                        <Link href='/compare'>
+                        <Link href='/news'>
                             <a className='w-full md:w-40 h-12 lg:h-10 flex justify-center items-center bg-white text-sm text-blue-brand-100 border border-blue-brand-100 rounded-lg'>
                                 View all news
                             </a>

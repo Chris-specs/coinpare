@@ -5,10 +5,7 @@ import Link from 'next/link';
 import { IoLogoGithub } from 'react-icons/io5';
 import { exchanges } from '../../utils';
 
-// Assets
-import { cryptoInstance } from '../../api/instances';
-
-const News = ({ coins, news }) => {
+const News = () => {
     return (
         <>
             <Head>
@@ -20,12 +17,12 @@ const News = ({ coins, news }) => {
                 <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-44'>
                     <div className='flex flex-col items-center pt-16 md:pb-10 md:pt-20'>
                         <div className='w-full flex items-center py-4'>
-                            <h1 className='text-lg font-semibold text-blue-brand-100'>
+                            <h1 className='text-lg lg:text-xl font-semibold text-blue-brand-100'>
                                 About
                             </h1>
                         </div>
                         <div className='flex flex-col'>
-                            <p className='text-sm mb-10'>
+                            <p className='text-sm lg:text-base mb-10'>
                                 Coinpare is a project created by Christian
                                 Sanchez to the all people get main information
                                 like market cap, supply or simply price to the
@@ -35,7 +32,7 @@ const News = ({ coins, news }) => {
                             <Link href='https://github.com/Chris-specs/coinpare'>
                                 <a
                                     target='_blank'
-                                    className='flex gap-1 items-center text-sm lg:text-lg font-medium text-blue-brand-100 mb-2'
+                                    className='flex gap-1 items-center text-sm lg:text-base font-medium text-blue-brand-100 mb-2'
                                 >
                                     <IoLogoGithub className='text-xl text-dark-brand' />{' '}
                                     Coinpare project repositorie
@@ -44,7 +41,7 @@ const News = ({ coins, news }) => {
                             <Link href='https://github.com/Chris-specs'>
                                 <a
                                     target='_blank'
-                                    className='flex gap-1 items-center text-sm lg:text-lg font-medium text-blue-brand-100 mb-12'
+                                    className='flex gap-1 items-center text-sm lg:text-base font-medium text-blue-brand-100 mb-12'
                                 >
                                     <IoLogoGithub className='text-xl text-dark-brand' />{' '}
                                     Christian Sanchez
@@ -91,6 +88,6 @@ export default News;
 
 export async function getStaticProps(context) {
     return {
-        props: {}, // will be passed to the page component as props
+        props: {},
     };
 }

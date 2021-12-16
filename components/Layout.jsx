@@ -116,7 +116,7 @@ const Layout = ({ children }) => {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href='/compare'>
+                                        <Link href='/news'>
                                             <a className='text-blue-brand-50 opacity-70'>
                                                 News
                                             </a>
@@ -130,14 +130,14 @@ const Layout = ({ children }) => {
                                 </p>
                                 <ul>
                                     <li>
-                                        <Link href='/compare'>
+                                        <Link href='/about'>
                                             <a className='text-blue-brand-50 opacity-70'>
                                                 About
                                             </a>
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href='/compare'>
+                                        <Link href='/faqs'>
                                             <a className='text-blue-brand-50 opacity-70'>
                                                 FAQ´s
                                             </a>
