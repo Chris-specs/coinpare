@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,12 +13,36 @@ import Solana from '../public/assets/images/solana.svg';
 import Bitcoin from '../public/assets/images/bitcoin.svg';
 import { cryptoInstance } from '../api/instances';
 
-export default function Home({ coins, news }) {
+export default function Home() {
+    const [coins, setCoins] = useState([]);
+    const [news, setNews] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const loaders = [1, 1, 1, 1, 1];
+
     let lastNews = [];
 
     for (let i = 0; i < 3; i++) {
         lastNews.push(news[i]);
     }
+
+    const getNews = async () => {
+        try {
+            setLoading(true);
+            const resCoins = await cryptoInstance.get(
+                '/top/mktcapfull?limit=5&tsym=USD'
+            );
+            const resNews = await cryptoInstance.get('/v2/news/?lang=EN');
+            setCoins(resCoins.data.Data);
+            setNews(resNews.data.Data);
+            setLoading(false);
+        } catch (error) {}
+    };
+
+    useEffect(() => {
+        getNews();
+        return () => {};
+    }, []);
 
     return (
         <>
@@ -125,64 +149,108 @@ export default function Home({ coins, news }) {
                                         Start
                                     </th>
                                 </tr>
-                                {coins.map((coin, i) => (
-                                    <tr
-                                        key={i}
-                                        className={`flex justify-between lg:justify-start border-b ${
-                                            i == 4 ? 'lg:rounded-b' : null
-                                        } lg:border-r lg:border-l border-gray-brand-50 px-4`}
-                                    >
-                                        <td className='w-1/12 hidden lg:flex items-center'>
-                                            {i + 1}
-                                        </td>
-                                        <td className='lg:w-6/12'>
-                                            <div className='flex items-start lg:items-center gap-2 py-2'>
-                                                <div className='w-10 h-10 relative'>
-                                                    <Image
-                                                        src={`https://www.cryptocompare.com${coin.DISPLAY.USD.IMAGEURL}`}
-                                                        layout='fill'
-                                                        alt='Logo'
-                                                    />
-                                                </div>
-                                                <div className='flex flex-col lg:flex-row lg:gap-2'>
-                                                    <span className=''>
-                                                        {coin.CoinInfo.FullName}
-                                                    </span>
-                                                    <span className='font-light text-gray-brand-200'>
-                                                        {coin.CoinInfo.Name}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td className='lg:w-2/12'>
-                                            <div className='h-full flex flex-col lg:flex-row justify-end lg:justify-start lg:items-center py-2'>
-                                                <span className='text-right lg:text-left'>
-                                                    {coin.RAW.USD.PRICE.toLocaleString(
-                                                        'en-US',
-                                                        {
-                                                            style: 'currency',
-                                                            currency: 'USD',
-                                                        }
-                                                    )}{' '}
-                                                    USD
-                                                </span>
-                                                <span className='lg:hidden capitalize text-right text-gray-brand-200'>
-                                                    {coin.RAW.USD.LASTMARKET}
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td className='w-2/12 hidden lg:flex items-center capitalize text-gray-brand-200'>
-                                            {coin.RAW.USD.LASTMARKET}
-                                        </td>
-                                        <td className='w-1/12 hidden lg:flex items-center'>
-                                            <Link href='/compare'>
-                                                <a className='w-16 h-8 flex justify-center items-center bg-blue-brand-100 text-sm text-white rounded-lg'>
-                                                    Start
-                                                </a>
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                ))}
+                                {loading
+                                    ? loaders.map((coin, i) => (
+                                          <tr
+                                              key={i}
+                                              className={`flex justify-between lg:justify-start border-b ${
+                                                  i == 4 ? 'lg:rounded-b' : null
+                                              } lg:border-r lg:border-l border-gray-brand-50 px-4 `}
+                                          >
+                                              <td className='w-1/12 hidden lg:flex items-center'>
+                                                  <span className='w-4 h-4 bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                              </td>
+                                              <td className='lg:w-6/12'>
+                                                  <div className='flex items-start lg:items-center gap-2 py-3 lg:py-2'>
+                                                      <div className='w-10 h-10 bg-gray-brand-50 opacity-70 rounded-full'></div>
+                                                      <div className='h-10 flex flex-col justify-between lg:items-center lg:flex-row lg:gap-2'>
+                                                          <span className='w-20 h-4 bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                                          <span className='w-10 h-4 bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                                      </div>
+                                                  </div>
+                                              </td>
+                                              <td className='lg:w-2/12'>
+                                                  <div className='h-full flex flex-col justify-between items-end lg:flex-row lg:justify-start lg:items-center py-3  lg:py-2'>
+                                                      <span className='w-24 h-4 bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                                      <span className='w-20 h-4 lg:hidden bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                                  </div>
+                                              </td>
+                                              <td className='w-2/12 hidden lg:flex items-center'>
+                                                  <span className='w-24 h-4 bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                              </td>
+                                              <td className='w-1/12 hidden lg:flex items-center'>
+                                                  <span className='w-24 h-4 bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                              </td>
+                                          </tr>
+                                      ))
+                                    : coins.map((coin, i) => (
+                                          <tr
+                                              key={i}
+                                              className={`flex justify-between lg:justify-start border-b ${
+                                                  i == 4 ? 'lg:rounded-b' : null
+                                              } lg:border-r lg:border-l border-gray-brand-50 px-4`}
+                                          >
+                                              <td className='w-1/12 hidden lg:flex items-center'>
+                                                  {i + 1}
+                                              </td>
+                                              <td className='lg:w-6/12'>
+                                                  <div className='flex items-start lg:items-center gap-2 py-2'>
+                                                      <div className='w-10 h-10 relative'>
+                                                          <Image
+                                                              src={`https://www.cryptocompare.com${coin.DISPLAY.USD.IMAGEURL}`}
+                                                              layout='fill'
+                                                              alt='Logo'
+                                                          />
+                                                      </div>
+                                                      <div className='flex flex-col lg:flex-row lg:gap-2'>
+                                                          <span className=''>
+                                                              {
+                                                                  coin.CoinInfo
+                                                                      .FullName
+                                                              }
+                                                          </span>
+                                                          <span className='font-light text-gray-brand-200'>
+                                                              {
+                                                                  coin.CoinInfo
+                                                                      .Name
+                                                              }
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                                              </td>
+                                              <td className='lg:w-2/12'>
+                                                  <div className='h-full flex flex-col lg:flex-row justify-end lg:justify-start lg:items-center py-2'>
+                                                      <span className='text-right lg:text-left'>
+                                                          {coin.RAW.USD.PRICE.toLocaleString(
+                                                              'en-US',
+                                                              {
+                                                                  style: 'currency',
+                                                                  currency:
+                                                                      'USD',
+                                                              }
+                                                          )}{' '}
+                                                          USD
+                                                      </span>
+                                                      <span className='lg:hidden capitalize text-right text-gray-brand-200'>
+                                                          {
+                                                              coin.RAW.USD
+                                                                  .LASTMARKET
+                                                          }
+                                                      </span>
+                                                  </div>
+                                              </td>
+                                              <td className='w-2/12 hidden lg:flex items-center capitalize text-gray-brand-200'>
+                                                  {coin.RAW.USD.LASTMARKET}
+                                              </td>
+                                              <td className='w-1/12 hidden lg:flex items-center'>
+                                                  <Link href='/compare'>
+                                                      <a className='w-16 h-8 flex justify-center items-center bg-blue-brand-100 text-sm text-white rounded-lg'>
+                                                          Start
+                                                      </a>
+                                                  </Link>
+                                              </td>
+                                          </tr>
+                                      ))}
                             </tbody>
                         </table>
                     </div>
@@ -192,49 +260,93 @@ export default function Home({ coins, news }) {
             <section className='w-full h-auto md:h-full flex justify-center'>
                 <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-44'>
                     <div className='flex flex-col items-center py-6'>
-                        <div className='flex flex-col md:flex-row md:gap-6 xl:gap-10'>
-                            {lastNews.map((item, i) => (
-                                <div
-                                    key={i}
-                                    className='w-full h-52 lg:h-72 flex flex-col justify-between border border-gray-brand-50 p-4 lg:p-6 mb-6 rounded'
-                                >
-                                    <div className='w-full flex flex-col'>
-                                        <Link href={item.url}>
-                                            <a
-                                                target='_blank'
-                                                className='lg:text-lg font-semibold text-blue-brand-100 line-clamp-2 mb-2'
-                                            >
-                                                {item.title}
-                                            </a>
-                                        </Link>
-                                        <p className='box text-sm text-dark-brand line-clamp-3 lg:line-clamp-4 mb-2'>
-                                            {item.body}
-                                        </p>
-                                    </div>
-                                    <div className='flex justify-between lg:flex-col lg:gap-4 items-center lg:items-start'>
-                                        <Link href={item.url}>
-                                            <a
-                                                target='_blank'
-                                                className='w-20 h-8 lg:h-7 flex justify-center items-center bg-white text-xs text-blue-brand-100 border border-blue-brand-100 rounded-lg lg:rounded'
-                                            >
-                                                Read more
-                                            </a>
-                                        </Link>
-                                        <div className='flex flex-row items-center gap-2'>
-                                            <div className='w-10 h-10 lg:w-8 lg:h-8 relative rounded-full overflow-hidden'>
-                                                <Image
-                                                    src={`${item.source_info.img}`}
-                                                    layout='fill'
-                                                    alt='Source logo'
-                                                />
-                                            </div>
-                                            <span className='hidden lg:flex capitalize'>
-                                                {item.source_info.name}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
+                        <div className='w-full flex flex-col md:flex-row md:gap-6 xl:gap-10'>
+                            {loading
+                                ? lastNews.map((item, i) => (
+                                      <div
+                                          key={i}
+                                          className='w-full md:w-[calc(33.333333%-1rem)] xl:w-[calc(33.333333%-1.69rem)] h-52 lg:h-72 flex flex-col justify-between border border-gray-brand-50 p-4 lg:p-6 mb-6 md:mb-0 rounded animate-pulse'
+                                      >
+                                          <div className='w-full flex flex-col gap-2'>
+                                              <span className='w-full h-4 bg-gray-brand-50 rounded-full opacity-70'></span>
+                                              <span className='w-1/2 h-4 bg-gray-brand-50 rounded-full opacity-70 mb-2'></span>
+                                              <span className='w-full h-3 bg-gray-brand-50 rounded-full opacity-70'></span>
+                                              <span className='w-full h-3 bg-gray-brand-50 rounded-full opacity-70'></span>
+                                              <span className='w-full h-3 bg-gray-brand-50 rounded-full opacity-70'></span>
+                                          </div>
+                                          <div className='flex justify-between lg:flex-col lg:gap-4 items-center lg:items-start'>
+                                              <span className='w-20 h-8 bg-gray-brand-50 rounded-lg opacity-70'></span>
+                                              <span className='w-10 h-10 lg:w-8 lg:h-8 bg-gray-brand-50 rounded-full opacity-70'></span>
+                                          </div>
+                                      </div>
+                                  ))
+                                : lastNews.map((item, i) => (
+                                      <div
+                                          key={i}
+                                          className='w-full h-52 lg:h-72 flex flex-col justify-between border border-gray-brand-50 p-4 lg:p-6 mb-6 rounded'
+                                      >
+                                          <div className='w-full flex flex-col'>
+                                              <Link
+                                                  href={
+                                                      item == undefined
+                                                          ? ''
+                                                          : item.url
+                                                  }
+                                              >
+                                                  <a
+                                                      target='_blank'
+                                                      className='lg:text-lg font-semibold text-blue-brand-100 line-clamp-2 mb-2'
+                                                  >
+                                                      {item == undefined
+                                                          ? ''
+                                                          : item.title}
+                                                  </a>
+                                              </Link>
+                                              <p className='box text-sm text-dark-brand line-clamp-3 lg:line-clamp-4 mb-2'>
+                                                  {item == undefined
+                                                      ? ''
+                                                      : item.body}
+                                              </p>
+                                          </div>
+                                          <div className='flex justify-between lg:flex-col lg:gap-4 items-center lg:items-start'>
+                                              <Link
+                                                  href={
+                                                      item == undefined
+                                                          ? ''
+                                                          : item.url
+                                                  }
+                                              >
+                                                  <a
+                                                      target='_blank'
+                                                      className='w-20 h-8 lg:h-7 flex justify-center items-center bg-white text-xs text-blue-brand-100 border border-blue-brand-100 rounded-lg lg:rounded'
+                                                  >
+                                                      Read more
+                                                  </a>
+                                              </Link>
+                                              <div className='flex flex-row items-center gap-2'>
+                                                  <div className='w-10 h-10 lg:w-8 lg:h-8 relative rounded-full overflow-hidden'>
+                                                      <Image
+                                                          src={`${
+                                                              item == undefined
+                                                                  ? '/'
+                                                                  : item
+                                                                        .source_info
+                                                                        .img
+                                                          }`}
+                                                          layout='fill'
+                                                          alt='Source logo'
+                                                      />
+                                                  </div>
+                                                  <span className='hidden lg:flex capitalize'>
+                                                      {item == undefined
+                                                          ? ''
+                                                          : item.source_info
+                                                                .name}
+                                                  </span>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  ))}
                         </div>
                         <Link href='/news'>
                             <a className='w-full md:w-40 h-12 lg:h-10 flex justify-center items-center bg-white text-sm text-blue-brand-100 border border-blue-brand-100 rounded-lg'>
@@ -248,15 +360,8 @@ export default function Home({ coins, news }) {
     );
 }
 
-export const getServerSideProps = async () => {
-    const coins = await cryptoInstance.get('/top/mktcapfull?limit=5&tsym=USD');
-
-    const news = await cryptoInstance.get('/v2/news/?lang=EN');
-
+export async function getStaticProps() {
     return {
-        props: {
-            coins: coins.data.Data,
-            news: news.data.Data,
-        },
+        props: {},
     };
-};
+}

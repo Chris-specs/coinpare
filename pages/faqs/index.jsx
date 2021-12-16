@@ -24,7 +24,7 @@ const Faqs = () => {
                 <div className='w-full max-w-screen-2xl h-auto px-6 md:px-10 lg:px-20 xl:px-44'>
                     <div className='flex flex-col items-center pt-16 md:pb-10 md:pt-20'>
                         <div className='w-full flex items-center py-4'>
-                            <h1 className='text-lg font-semibold text-blue-brand-100'>
+                            <h1 className='text-lg lg:text-xl font-semibold text-blue-brand-100'>
                                 FAQ´S
                             </h1>
                         </div>
@@ -39,13 +39,15 @@ const Faqs = () => {
                                                     index: i,
                                                 })
                                             }
-                                            className={`w-full h-10 flex justify-between items-center text-xs ${
+                                            className={`w-full h-10 md:h-12 lg:h-14 flex justify-between items-center text-xs md:text-sm lg:text-base text-gray-brand-200 text-left ${
                                                 i == 0
                                                     ? 'border border-b-1 rounded-t-md'
-                                                    : i == 3 ? showAnswer.show ? 'border border-t-0' : 'border border-t-0 rounded-b-md'
-                                                    
+                                                    : i == 3
+                                                    ? showAnswer.show
+                                                        ? 'border border-t-0'
+                                                        : 'border border-t-0 rounded-b-md'
                                                     : 'border border-t-0'
-                                            } border-gray-brand-50 px-2`}
+                                            } border-gray-brand-50 px-2 md:px-4`}
                                         >
                                             {faq.name}
                                             <IoChevronDown
@@ -59,40 +61,26 @@ const Faqs = () => {
                                         {showAnswer.show &&
                                             showAnswer.index == i && (
                                                 <div
-                                                    className={`w-full flex items-center ${
+                                                    className={`w-full flex items-center bg-gray-100 whitespace-pre-wrap ${
                                                         i == 0
                                                             ? 'border border-t-0'
                                                             : i == 3
                                                             ? 'border border-t-0 rounded-b-md'
                                                             : 'border border-t-0'
-                                                    } border-gray-brand-50 p-2`}
+                                                    } border-gray-brand-50 px-2 py-4 md:px-4`}
                                                 >
-                                                    <p className='text-xs'>
-                                                        {faq.description}
+                                                    <p className='text-xs md:text-sm lg:text-base text-gray-brand-200'>
+                                                        {faq.description.text}
+                                                        {
+                                                            faq.description
+                                                                .components
+                                                        }
                                                     </p>
                                                 </div>
                                             )}
                                     </div>
                                 ))}
                             </div>
-                            <Link href='https://github.com/Chris-specs/coinpare'>
-                                <a
-                                    target='_blank'
-                                    className='flex gap-1 items-center text-sm lg:text-lg font-medium text-blue-brand-100 mb-2'
-                                >
-                                    <IoLogoGithub className='text-xl text-dark-brand' />{' '}
-                                    Coinpare project repositorie
-                                </a>
-                            </Link>
-                            <Link href='https://github.com/Chris-specs'>
-                                <a
-                                    target='_blank'
-                                    className='flex gap-1 items-center text-sm lg:text-lg font-medium text-blue-brand-100 mb-12'
-                                >
-                                    <IoLogoGithub className='text-xl text-dark-brand' />{' '}
-                                    Christian Sanchez
-                                </a>
-                            </Link>
                         </div>
                     </div>
                 </div>
@@ -102,7 +90,7 @@ const Faqs = () => {
 };
 export default Faqs;
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
     return {
         props: {},
     };

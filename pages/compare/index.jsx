@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { Player } from '@lottiefiles/react-lottie-player';
@@ -7,7 +7,7 @@ import { currencies, convertion } from '../../utils';
 import { IoArrowForwardOutline, IoCube } from 'react-icons/io5';
 import { cryptoInstance } from '../../api/instances';
 
-const Compare = ({ coins }) => {
+const Compare = () => {
     const initialState = {
         currency: '',
         coin: {
@@ -16,9 +16,13 @@ const Compare = ({ coins }) => {
         },
     };
 
+    const [coins, setCoins] = useState([]);
+    const [loadingCoins, setLoadingCoins] = useState(true);
     const [compareData, setCompareData] = useState(initialState);
     const [coinData, setCoinData] = useState(undefined);
     const [loading, setLoading] = useState(false);
+
+    const loaders = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
     const getInfo = async () => {
         if (compareData.coin && compareData.currency != '') {
@@ -34,10 +38,26 @@ const Compare = ({ coins }) => {
                 );
                 setTimeout(() => {
                     setLoading(false);
-                }, 2000);
+                }, 1000);
             } catch (error) {}
         }
     };
+
+    const getCoins = async () => {
+        try {
+            setLoadingCoins(true);
+            const response = await cryptoInstance.get(
+                '/top/mktcapfull?limit=10&tsym=USD'
+            );
+            setCoins(response.data.Data);
+            setLoadingCoins(false);
+        } catch (error) {}
+    };
+
+    useEffect(() => {
+        getCoins();
+        return () => {};
+    }, []);
 
     return (
         <>
@@ -141,70 +161,91 @@ const Compare = ({ coins }) => {
                         </div>
                         <div className='w-full lg:w-75 flex items-center overflow-x-auto scrollbar-hidden'>
                             <div className='flex justify-center lg:justify-start lg:flex-wrap gap-2'>
-                                {coins.map((coin, i) => (
-                                    <button
-                                        onClick={() => {
-                                            setCompareData(
-                                                (compareData = {
-                                                    ...compareData,
-                                                    coin: {
-                                                        name: coin.CoinInfo
-                                                            .FullName,
-                                                        code: coin.CoinInfo
-                                                            .Name,
-                                                    },
-                                                })
-                                            );
-                                            getInfo();
-                                        }}
-                                        key={i}
-                                        className={`w-32 lg:w-36 h-28 lg:h-24 flex flex-col justify-between  ${
-                                            coin.CoinInfo.Name ==
-                                                compareData.coin.code &&
-                                            'bg-blue-brand-100'
-                                        }  border border-blue-brand-100 p-3 rounded-lg`}
-                                    >
-                                        <div className='w-full flex justify-between'>
-                                            <p
-                                                className={`w-3/4 text-sm font-medium text-dark-brand ${
-                                                    coin.CoinInfo.Name ==
-                                                        compareData.coin.code &&
-                                                    'text-white'
-                                                } text-left`}
-                                            >
-                                                {coin.CoinInfo.FullName}
-                                            </p>
-                                            <div className='w-6 h-6 relative'>
-                                                <Image
-                                                    src={`https://www.cryptocompare.com${coin.CoinInfo.ImageUrl}`}
-                                                    layout='fill'
-                                                    alt='Crypto logo'
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className='flex'>
-                                            <p
-                                                className={`w-3/4 flex flex-col text-xs text-dark-brand ${
-                                                    coin.CoinInfo.Name ==
-                                                        compareData.coin.code &&
-                                                    'text-white'
-                                                }`}
-                                            >
-                                                {coin.RAW &&
-                                                    coin.RAW.USD.PRICE.toLocaleString(
-                                                        'en-US',
-                                                        {
-                                                            style: 'currency',
-                                                            currency: 'USD',
-                                                        }
-                                                    )}{' '}
-                                                <span className='text-xxs text-left'>
-                                                    USD
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </button>
-                                ))}
+                                {loadingCoins
+                                    ? loaders.map((coin, i) => (
+                                          <div
+                                              key={i}
+                                              className='w-32 lg:w-36 h-28 lg:h-24 flex flex-col justify-between border border-blue-brand-100 p-3 rounded-lg animate-pulse'
+                                          >
+                                              <div className='w-full flex justify-between items-center'>
+                                                  <span className='w-3/5 h-5 text-sm bg-gray-brand-50 opacity-70 text-left rounded-full'></span>
+                                                  <span className='w-6 h-6 bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                              </div>
+                                              <div className='flex flex-col gap-1'>
+                                                  <span className='w-3/4 h-3 flex bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                                  <span className='w-1/4 h-3 flex bg-gray-brand-50 opacity-70 rounded-full'></span>
+                                              </div>
+                                          </div>
+                                      ))
+                                    : coins.map((coin, i) => (
+                                          <button
+                                              onClick={() => {
+                                                  setCompareData(
+                                                      (compareData = {
+                                                          ...compareData,
+                                                          coin: {
+                                                              name: coin
+                                                                  .CoinInfo
+                                                                  .FullName,
+                                                              code: coin
+                                                                  .CoinInfo
+                                                                  .Name,
+                                                          },
+                                                      })
+                                                  );
+                                                  getInfo();
+                                              }}
+                                              key={i}
+                                              className={`w-32 lg:w-36 h-28 lg:h-24 flex flex-col justify-between  ${
+                                                  coin.CoinInfo.Name ==
+                                                      compareData.coin.code &&
+                                                  'bg-blue-brand-100'
+                                              }  border border-blue-brand-100 p-3 rounded-lg`}
+                                          >
+                                              <div className='w-full flex justify-between'>
+                                                  <p
+                                                      className={`w-3/4 text-sm font-medium text-dark-brand ${
+                                                          coin.CoinInfo.Name ==
+                                                              compareData.coin
+                                                                  .code &&
+                                                          'text-white'
+                                                      } text-left`}
+                                                  >
+                                                      {coin.CoinInfo.FullName}
+                                                  </p>
+                                                  <div className='w-6 h-6 relative'>
+                                                      <Image
+                                                          src={`https://www.cryptocompare.com${coin.CoinInfo.ImageUrl}`}
+                                                          layout='fill'
+                                                          alt='Crypto logo'
+                                                      />
+                                                  </div>
+                                              </div>
+                                              <div className='flex'>
+                                                  <p
+                                                      className={`w-3/4 flex flex-col text-xs text-dark-brand ${
+                                                          coin.CoinInfo.Name ==
+                                                              compareData.coin
+                                                                  .code &&
+                                                          'text-white'
+                                                      }`}
+                                                  >
+                                                      {coin.RAW &&
+                                                          coin.RAW.USD.PRICE.toLocaleString(
+                                                              'en-US',
+                                                              {
+                                                                  style: 'currency',
+                                                                  currency:
+                                                                      'USD',
+                                                              }
+                                                          )}{' '}
+                                                      <span className='text-xxs text-left'>
+                                                          USD
+                                                      </span>
+                                                  </p>
+                                              </div>
+                                          </button>
+                                      ))}
                             </div>
                         </div>
                     </div>
@@ -216,12 +257,8 @@ const Compare = ({ coins }) => {
 
 export default Compare;
 
-export const getServerSideProps = async () => {
-    const coins = await cryptoInstance.get('/top/mktcapfull?limit=10&tsym=USD');
-
+export async function getStaticProps() {
     return {
-        props: {
-            coins: coins.data.Data,
-        },
+        props: {},
     };
-};
+}
