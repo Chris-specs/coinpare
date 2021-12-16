@@ -2,7 +2,7 @@
 
 <div align="center">
 
-  ### <h1 style='color: #0052FF;'>coinpare</h1>
+  ### <img src="https://github.com/Chris-specs/coinpare/blob/master/public/icon.svg" height="250px"/>
   
 </div>
 
