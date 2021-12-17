@@ -6,6 +6,7 @@
 
   [![NextS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
   [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
   
 </div>
 
@@ -15,7 +16,7 @@ Coinpare is a project created to the all people get main information like market
 
  - [NextJS](https://nextjs.org/)
  - [TailwindCSS](https://tailwindcss.com/)
- - [Lootie Files](https://lottiefiles.com/)
+ - [Lottie Files](https://lottiefiles.com/)
  - [Axios](https://axios-http.com/)
  - [React Icons](https://react-icons.github.io/react-icons/)
   
