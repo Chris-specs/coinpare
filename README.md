@@ -3,6 +3,9 @@
 <div align="center">
 
   ### <img src="https://github.com/Chris-specs/coinpare/blob/master/public/icon.svg" height="250px"/>
+
+  [![NextS](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+  [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
   
 </div>
 
